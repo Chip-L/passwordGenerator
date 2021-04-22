@@ -50,12 +50,14 @@ function generatePassword() {
    cancel, it will return  "cancel". */
 function getPwdLength() {
   let input = 0; // leave 0 in case someone leaves the prompt blank it won't return "cancel"
-  let msg = "How many characters would you like in your password? (8-128)";
   let length; // declared here for scope outside of "do/while" block
-  let hadError = false; // flag to check if we need to add error message
+  let badEntry = ""; // variable that will store bad entry text
 
   do {
-    input = prompt(msg, "(8-128)");
+    input = prompt(
+      `How many characters would you like in your password? (8-128)${badEntry}`,
+      "(8-128)"
+    );
     if (input == null || input == "") {
       return "cancel";
     }
@@ -64,10 +66,7 @@ function getPwdLength() {
     length = parseInt(input);
 
     if (length < 8 || length > 128 || isNaN(length)) {
-      if (!hadError) {
-        msg = msg + "\n\n That was an invalid answer, please try again.";
-        hadError = true;
-      }
+      badEntry = "\n\n That was an invalid answer, please try again.";
     } else {
       return length;
     }
@@ -81,7 +80,6 @@ function getChrTypes() {
   let type = "";
   let badEntry = "";
   let noChoice = "";
-  // let msg = `Would you like to use ${type} characters? (yes/no)${badEntry}${noChoice}`;
 
   do {
     // iterate through the array, prompting yes/no to get if we want to use the type
@@ -103,7 +101,7 @@ function getChrTypes() {
 
         //validate we have a valid answer
         if (answer === "y" || answer === "yes") {
-          arrReturn.push(chrTypes[i]);
+          arrReturn.push(chrTypes[i]); // records the choice
           break; // breaks out of the while, to move back to the for loop
         } else if (answer === "n" || answer === "no") {
           break; // breaks out of the while, to move back to the for loop
