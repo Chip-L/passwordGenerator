@@ -35,14 +35,9 @@ function generatePassword() {
     return null; //exit with no password (should leave default text)
   }
 
-  return (
-    "test password details: \n" +
-    "length: " +
-    pwdLength +
-    "\n" +
-    "chartypes: " +
-    pwdChrTypes
-  );
+  let newPwd = getPassword(pwdLength, pwdChrTypes);
+
+  return newPwd;
 }
 
 /* Prompts the user to enter a password length value between 8 and 128 
@@ -101,7 +96,7 @@ function getChrTypes() {
 
         //validate we have a valid answer
         if (answer === "y" || answer === "yes") {
-          arrReturn.push(chrTypes[i]); // records the choice
+          arrReturn.push(i); // records the choice - this is the index of chrType
           break; // breaks out of the while, to move back to the for loop
         } else if (answer === "n" || answer === "no") {
           break; // breaks out of the while, to move back to the for loop
@@ -114,4 +109,59 @@ function getChrTypes() {
   } while (arrReturn.length < 1);
 
   return arrReturn;
+}
+
+/* This will return a password. it takes an integer len that represents the length and arrTypes that represents an array of chrTypes indicies. 
+arrChrCounts is used to ensure we have the proper datatypes included in the array. When the function is entered, the indicies in arrTypes is checked and used to set the arrChrCounts to 0 if it is valid and -1 if it is not. The function then enters a while loop that will randomly choose a type from the arrTypes and then add a randomly choosen character from that string. The while loop ends if arrChrCounts does not include any 0s. (If there is a 0, we were supposed have chosen one of that type.) */
+function getPassword(len, arrTypes) {
+  let pwd; // just concatenate the new character on to the string
+  let arrChrCounts = [];
+  let chrChoice;
+
+  do {
+    // determine which chr types are chosen (arrChrCounts gives numbers against chrTypes)
+    for (let i = 0; i < chrTypes.length; i++) {
+      if (arrTypes.includes(i)) {
+        arrChrCounts[i] = 0;
+      } else {
+        arrChrCounts[i] = -1;
+      }
+    }
+
+    pwd = "";
+    for (let i = 0; i < len; i++) {
+      // select a random type
+
+      chrChoice = Math.floor(Math.random() * arrTypes.length);
+
+      // select which chrType to add by dereferencing the index stored in arrTypes
+      switch (arrTypes[chrChoice]) {
+        case 0: // "uppercase":
+          pwd += getRandomChr(uppercase);
+          arrChrCounts[0]++;
+          break;
+        case 1: // "lowercase":
+          pwd += getRandomChr(lowercase);
+          arrChrCounts[1]++;
+          break;
+        case 2: // "numeric":
+          pwd += getRandomChr(numeric);
+          arrChrCounts[2]++;
+          break;
+        case 3: // "special characters":
+          pwd += getRandomChr(specialCharacters);
+          arrChrCounts[3]++;
+          break;
+      }
+    }
+  } while (arrChrCounts.includes(0));
+
+  return pwd;
+}
+
+/* This will randomly choose a character out of the chrList and return it. */
+function getRandomChr(chrList) {
+  let chrChoice = Math.floor(Math.random() * chrList.length);
+
+  return chrList.charAt(chrChoice);
 }
