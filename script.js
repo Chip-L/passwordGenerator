@@ -23,17 +23,34 @@ const chrTypes = ["uppercase", "lowercase", "numeric", "special characters"];
 /* Main function to generate password. This will mainly just call other 
   functions to get the data and then return the data needed */
 function generatePassword() {
-  //get length
-  let pwdLength = getPwdLength();
-  if (pwdLength === "cancel") {
-    return null; //exit with no password (should leave default text)
-  }
+  let msg;
+  let pwdLength;
+  let pwdChrTypes;
 
-  //get character types (an array)
-  let pwdChrTypes = getChrTypes();
-  if (pwdChrTypes === "cancel") {
-    return null; //exit with no password (should leave default text)
-  }
+  alert("Let's make a password!");
+
+  do {
+    //get length
+    pwdLength = getPwdLength();
+    if (pwdLength === "cancel") {
+      return null; //exit with no password (should leave default text)
+    }
+
+    //get character types (an array)
+    pwdChrTypes = getChrTypes();
+    if (pwdChrTypes === "cancel") {
+      return null; //exit with no password (should leave default text)
+    }
+
+    msg =
+      "You selected these options:\n\n    Password length: " +
+      pwdLength +
+      "\n    These charactertypes:";
+    for (let i = 0; i < pwdChrTypes.length; i++) {
+      msg += "\n    \u2022    " + chrTypes[pwdChrTypes[i]];
+    }
+    msg += "\n\nIs this correct?";
+  } while (!confirm(msg));
 
   let newPwd = getPassword(pwdLength, pwdChrTypes);
 
