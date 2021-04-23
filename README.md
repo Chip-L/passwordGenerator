@@ -6,6 +6,8 @@ Modify starter code to create an application that enables employees to generate 
 
 The password can include special characters. See this [list of password special characters](https://www.owasp.org/index.php/Password_special_characters) from the OWASP Foundation.
 
+This was fun. I think my solution might be a bit convoluted. Doing prompts and alerts for all of this gives a HORRIBLE user experience. I should do this with selectors from the pages.
+
 ## Table of Contents
 
 - [User Story](#user-story)

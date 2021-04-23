@@ -43,7 +43,7 @@ function generatePassword() {
     }
 
     msg =
-      "You selected these options:\n\n    Password length: " +
+      "You selected these options:\n    Password length: " +
       pwdLength +
       "\n    These charactertypes:";
     for (let i = 0; i < pwdChrTypes.length; i++) {
