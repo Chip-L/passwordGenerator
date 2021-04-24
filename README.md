@@ -8,6 +8,8 @@ The password can include special characters. See this [list of password special 
 
 This was fun. I think my solution might be a bit convoluted. Doing prompts and alerts for all of this gives a HORRIBLE user experience. I should do this with selectors from the pages.
 
+I ended up re-writing the solution. I cut the length in half and I think the new solution is actually more readable. Both solutions are included, but the second one is what is displayed. The second one is also, I think, closer to the intent of the homework.
+
 ## Table of Contents
 
 - [User Story](#user-story)
